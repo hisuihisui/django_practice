@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load pygmentize %}
-{% comment %} 効いてない {% endcomment %}
+{% comment %} TODO:効いてない {% endcomment %}
 {% block extraheader %}
   <style>{% pygments_css %}</style>
 {% endblock extraheader %}
 {% block main %}
-<h2>{{ snippet.title }} by {{ snippet.created_by.username }}</h2>
-<div class="snippet-date">
-  投稿日：{{ snippet.created_at|date:"DATETIME_FORMAT" }}
-  {% if user.is_authenticated and snippet.created_by.id == user.id %}
-    <a href="{% url 'snippet_edit' snippet.id %}">編集</a>
-  {% endif %}
-</div>
-<div class="source-code">{{ snippet.code|pygmentize:"python3" }}</div>
-<p>{{ snippet.description|urlize }}</p>
+  <h2>{{ snippet.title }} by {{ snippet.created_by.username }}</h2>
+  <div class="snippet-date">
+    投稿日：{{ snippet.created_at|date:"DATETIME_FORMAT" }}
+    {% if user.is_authenticated and snippet.created_by.id == user.id %}
+      <a href="{% url 'snippet_edit' snippet.id %}">編集</a>
+    {% endif %}
+  </div>
+  <div class="source-code">{{ snippet.code|pygmentize:"python3" }}</div>
+  <p>{{ snippet.description|urlize }}</p>
 {% endblock main %}

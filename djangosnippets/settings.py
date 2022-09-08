@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "snippets.apps.SnippetsConfig",
     "django_bootstrap5",
     "pygments_renderer",
+    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # テンプレートを格納したフォルダをリストで指定
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         # True：各アプリケーション以下のtemplates配下を探索対象に含める
         "APP_DIRS": True,
         "OPTIONS": {
@@ -184,3 +185,8 @@ LOGGING = {
         },
     },
 }
+
+# ログインに関する設定
+LOGIN_URL = "/accounts/login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

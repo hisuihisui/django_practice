@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.top, name="top"),
     path('snippets/', include("snippets.urls")),
+    path('accounts/', include("accounts.urls")),
 ]
