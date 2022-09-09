@@ -8,3 +8,5 @@ https://www.amazon.co.jp/gp/product/B095BZPJYW/ref=ppx_yo_dt_b_d_asin_title_o07?
     リダイレクトで同じ画面に飛ばす
 3. テンプレート
     formをたす
+残タスク
+    コメント一覧の見た目を整える
