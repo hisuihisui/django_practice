@@ -3,8 +3,8 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods, require_safe
 
-from snippets.forms import SnippetForm
-from snippets.models import Snippet
+from snippets.forms import CommentForm, SnippetForm
+from snippets.models import Comment, Snippet
 
 
 # Create your views here.
@@ -34,8 +34,26 @@ def snippet_new(request):
 
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
+
+    # POSTメソッドの場合、コメントを登録
+    if request.method == "POST":
+        # ログインしていない場合はエラーを出す
+        if request.user.is_authenticated is False:
+            return HttpResponseForbidden("コメントするにはログインしてください")
+
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.commented_to = snippet
+            comment.commented_by = request.user
+            comment.save()
+
+    comments = Comment.objects.filter(commented_to=snippet)
+    form = CommentForm()
     return render(
-        request, "snippets/snippet_detail.html", {"snippet": snippet}
+        request,
+        "snippets/snippet_detail.html",
+        {"snippet": snippet, "comments": comments, "form": form},
     )
 
 
