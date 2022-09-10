@@ -11,3 +11,9 @@ https://www.amazon.co.jp/gp/product/B095BZPJYW/ref=ppx_yo_dt_b_d_asin_title_o07?
 <br><br>
 残タスク<br>
     コメント一覧の見た目を整える
+
+## 2. モデル定義とクエリ操作
+### マイグレーションファイル→SQLの確認
+```
+python manage.py sqlmigrate <app_name> <migration_name>
+```
