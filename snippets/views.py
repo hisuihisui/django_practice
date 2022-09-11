@@ -1,4 +1,4 @@
-from django.db import transaction
+# from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
