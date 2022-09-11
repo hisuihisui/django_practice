@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "pygments_renderer",
     "accounts.apps.AccountsConfig",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -156,16 +157,28 @@ LOGGING = {
     },
     # ハンドラの設定
     "handlers": {
-        "console": {
+        "console_info": {
             "level": "INFO",
             "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        "file": {
+        "console_debug": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file_info": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": "logs/app.log",
+            "filename": "logs/info.log",
+            "formatter": "dev",
+        },
+        "file_debug": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "logs/debug.log",
             "formatter": "dev",
         },
     },
@@ -173,14 +186,19 @@ LOGGING = {
     "loggers": {
         # 自分で追加したアプリケーション全般のログを拾うロガー
         "": {
-            "handlers": ["console", "file"],
+            "handlers": ["console_info", "file_info"],
             "level": "INFO",
             "propagate": False,
         },
         # Django自身が出力するログ全般を拾うロガー
         "django": {
-            "handlers": ["console", "file"],
+            "handlers": ["console_info", "file_info"],
             "level": "INFO",
+            "propagate": False,
+        },
+        "django.db.backends": {
+            "handlers": ["console_debug", "file_debug"],
+            "level": "DEBUG",
             "propagate": False,
         },
     },
@@ -190,3 +208,5 @@ LOGGING = {
 LOGIN_URL = "/accounts/login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+SHELL_PLUS = "ptpython"

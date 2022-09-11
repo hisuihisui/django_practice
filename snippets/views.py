@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
@@ -11,6 +12,12 @@ from snippets.models import Comment, Snippet
 # GETメソッドとHEADメソッドを受け付ける
 @require_safe
 def top(request):
+    # SELECT ... FOR UPDATE
+    # 行ロック → SQLite3 では使用不可
+    # with transaction.atomic():
+    #     snippet = Snippet.objects.select_for_update().get(id=1)
+    #     snippet.title = "タイトル"
+    #     snippet.save()
     snippets = Snippet.objects.all()
     context = {"snippets": snippets}
     return render(request, "snippets/top.html", context)
