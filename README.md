@@ -51,3 +51,9 @@ queryプロパティを使用して、sqlを確認できる
 # 例
 print(Snippet.objects.filter(id__gte=1).query)
 ```
+### select_related メソッド
+ForeignKeyやOneToOneFieldのフィールドをINNER JOIN<br>
+　→テーブル結合を行ってから取り出す<br>
+　　→単一の値が紐づく関係のみに使用可能
+### prefetch_related メソッド
+1回目にあるテーブルの一覧を取り出し、そのIDをもとに結合先のテーブルの情報を取り出す

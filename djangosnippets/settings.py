@@ -40,10 +40,18 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "snippets.apps.SnippetsConfig",
+    "debug_toolbar",
     "django_bootstrap5",
     "pygments_renderer",
     "accounts.apps.AccountsConfig",
     "django_extensions",
+    "silk",
+]
+
+DEBUG = True
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +62,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "silk.middleware.SilkyMiddleware",
 ]
 
 ROOT_URLCONF = "djangosnippets.urls"
