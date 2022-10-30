@@ -26,12 +26,11 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
 ]
 
-urlpatterns += [
-    path("silk/", include("silk.urls", namespace="silk"))
-]
-
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls))
+    ]
+    urlpatterns += [
+        path("silk/", include("silk.urls", namespace="silk"))
     ]
