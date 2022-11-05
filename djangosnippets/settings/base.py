@@ -13,21 +13,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-(zuo!g9cok9y03$!pg7xg15u9hqjv%wpi!cj_fze$eg^&ryb+&"
-)
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,15 +30,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "snippets.apps.SnippetsConfig",
-    "debug_toolbar",
     "django_bootstrap5",
     "pygments_renderer",
     "accounts.apps.AccountsConfig",
     "django_extensions",
-    "silk",
 ]
-
-DEBUG = True
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -62,8 +48,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "silk.middleware.SilkyMiddleware",
 ]
 
 ROOT_URLCONF = "djangosnippets.urls"
@@ -87,17 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "djangosnippets.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation
@@ -135,84 +108,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# ログ設定
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "filters": {
-        "require_debug_false": {
-            "()": "django.utils.log.RequireDebugFalse",
-        },
-        "require_debug_true": {
-            "()": "django.utils.log.RequireDebugTrue",
-        },
-    },
-    # ログ出力フォーマットの設定
-    "formatters": {
-        "dev": {
-            "format": "%(asctime)s [%(levelname)s] %(process)d %(thread)d "
-            "%(pathname)s:%(lineno)d %(message)s"
-        },
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        },
-    },
-    # ハンドラの設定
-    "handlers": {
-        "console_info": {
-            "level": "INFO",
-            "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
-        "console_debug": {
-            "level": "DEBUG",
-            "filters": ["require_debug_true"],
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
-        "file_info": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": "logs/info.log",
-            "formatter": "dev",
-        },
-        "file_debug": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": "logs/debug.log",
-            "formatter": "dev",
-        },
-    },
-    # ロガーの設定
-    "loggers": {
-        # 自分で追加したアプリケーション全般のログを拾うロガー
-        "": {
-            "handlers": ["console_info", "file_info"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        # Django自身が出力するログ全般を拾うロガー
-        "django": {
-            "handlers": ["console_info", "file_info"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "django.db.backends": {
-            "handlers": ["console_debug", "file_debug"],
-            "level": "DEBUG",
-            "propagate": False,
-        },
-    },
-}
 
 # ログインに関する設定
 LOGIN_URL = "/accounts/login"
